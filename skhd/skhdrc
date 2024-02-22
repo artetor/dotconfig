@@ -1,5 +1,7 @@
-alt - e : yabai -m space --layout bsp
-alt - s : yabai -m space --layout stack
+# alt - e : yabai -m space --layout bsp
+# alt - s : yabai -m space --layout stack
+# toggle stack/bsp
+alt - s : yabai -m space --layout $( [ "$(yabai -m query --spaces --space | jq -re .type)" = 'bsp' ] && echo 'stack' || echo 'bsp' )
 alt - f : yabai -m space --layout float
 
 # change window focus within space
@@ -7,6 +9,9 @@ alt - j : yabai -m window --focus stack.next || yabai -m window --focus south ||
 alt - k : yabai -m window --focus stack.prev || yabai -m window --focus north || yabai -m display --focus north
 alt - h : yabai -m window --focus west
 alt - l : yabai -m window --focus east
+
+# toggle horizontal/vertical split for window and child windows
+alt - u : yabai -m window --toggle split
 
 # rotate layout clockwise
 shift + alt - r : yabai -m space --rotate 270
@@ -18,7 +23,7 @@ shift + alt - y : yabai -m space --mirror y-axis
 shift + alt - x : yabai -m space --mirror x-axis
 
 # toggle window float
-shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+shift + alt - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
 # maximize a window
 alt - m : yabai -m window --toggle zoom-fullscreen
@@ -50,17 +55,17 @@ shift + alt - 4 : yabai -m window --space 4;
 shift + alt - 5 : yabai -m window --space 5;
 shift + alt - 6 : yabai -m window --space 6;
 
-# stop/start/restart yabai
-ctrl + alt - q : brew services stop yabai
-ctrl + alt - s : brew services start yabai
-ctrl + alt - r : brew services restart yabai
-
 # Add the active window  to the window or stack to the {direction}
 # Note that this only works when the active window does *not* already belong to a stack
 cmd + alt - h : yabai -m window west --stack $(yabai -m query --windows --window | jq -r '.id')
 cmd + alt - j : yabai -m window south --stack $(yabai -m query --windows --window | jq -r '.id')
 cmd + alt - k : yabai -m window north --stack $(yabai -m query --windows --window | jq -r '.id')
 cmd + alt - l : yabai -m window east --stack $(yabai -m query --windows --window | jq -r '.id')
+
+# stop/start/restart yabai
+ctrl + alt - q : brew services stop yabai
+ctrl + alt - s : brew services start yabai
+ctrl + alt - r : brew services restart yabai
 
 # focus requires SIP disabled 
 # ctrl - 1 : yabai -m space --focus 1
