@@ -37,8 +37,15 @@ ctrl + alt - l : yabai -m window --swap east
 # shift + alt - l : yabai -m window --warp east
 
 # displays
-alt - i : yabai -m display --focus south
-alt - o : yabai -m display --focus north
+# tweak to solve problem with stackline https://github.com/koekeishiya/yabai/issues/1198
+alt - o : yabai -m window --focus north || \
+              yabai -m window --focus $(yabai -m query --spaces --display north | jq '.[] | select(."is-visible" == true) | ."last-window"')
+
+alt - i : yabai -m window --focus south || \
+              yabai -m window --focus $(yabai -m query --spaces --display south | jq '.[] | select(."is-visible" == true) | ."first-window"')
+
+# alt - i : yabai -m display --focus south
+# alt - o : yabai -m display --focus north
 shift + alt - i : yabai -m window --display south; yabai -m display --focus south;
 shift + alt - o :  yabai -m window --display north; yabai -m display --focus north;
 
