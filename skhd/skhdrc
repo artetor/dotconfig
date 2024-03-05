@@ -73,7 +73,7 @@ shift + alt - e : yabai -m space --balance
 # stop/start/restart yabai
 ctrl + alt - q : brew services stop yabai
 ctrl + alt - s : brew services start yabai
-ctrl + alt - r : brew services restart yabai
+ctrl + alt - r : yabai --restart-service
 
 # focus requires SIP disabled 
 # ctrl - 1 : yabai -m space --focus 1
