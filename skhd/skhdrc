@@ -1,15 +1,16 @@
 alt - e : yabai -m space --layout bsp
 alt - s : yabai -m space --layout stack
+alt - f : yabai -m space --layout float
+
 # toggle stack/bsp
 # alt - s : yabai -m space --layout $( [ "$(yabai -m query --spaces --space | jq -re .type)" = 'bsp' ] && echo 'stack' || echo 'bsp' )
-alt - f : yabai -m space --layout float
 
 # move window to space #
 shift + alt - 1 : yabai -m window --space 1;
 shift + alt - 2 : yabai -m window --space 2;
 shift + alt - 3 : yabai -m window --space 3;
 shift + alt - 4 : yabai -m window --space 4;
-shift + alt - 5 : yabai -m window --space 5;
+shift + alt - 5 : yab ai -m window --space 5;
 shift + alt - 6 : yabai -m window --space 6;
 
 # change window focus within space
@@ -24,28 +25,16 @@ shift + alt - j : bash ~/.config/skhd/move_window.sh south
 shift + alt - k : bash ~/.config/skhd/move_window.sh north
 shift + alt - l : bash ~/.config/skhd/move_window.sh east
 
-# swap windows
-ctrl + alt - j : yabai -m window --swap south
-ctrl + alt - k : yabai -m window --swap north
-ctrl + alt - h : yabai -m window --swap west
-ctrl + alt - l : yabai -m window --swap east
-
-# move window and split
-# shift + alt - j : yabai -m window --warp south
-# shift + alt - k : yabai -m window --warp north
-# shift + alt - h : yabai -m window --warp west
-# shift + alt - l : yabai -m window --warp east
-
 # displays
 # tweak to solve problem with stackline https://github.com/koekeishiya/yabai/issues/1198
-alt - o : yabai -m window --focus north || \
-              yabai -m window --focus $(yabai -m query --spaces --display north | jq '.[] | select(."is-visible" == true) | ."last-window"')
+# alt - o : yabai -m window --focus north || \
+#               yabai -m window --focus $(yabai -m query --spaces --display north | jq '.[] | select(."is-visible" == true) | ."last-window"')
 
-alt - i : yabai -m window --focus south || \
-              yabai -m window --focus $(yabai -m query --spaces --display south | jq '.[] | select(."is-visible" == true) | ."first-window"')
+# alt - i : yabai -m window --focus south || \
+#               yabai -m window --focus $(yabai -m query --spaces --display south | jq '.[] | select(."is-visible" == true) | ."first-window"')
 
-# alt - i : yabai -m display --focus south
-# alt - o : yabai -m display --focus north
+alt - i : yabai -m display --focus south
+alt - o : yabai -m display --focus north
 shift + alt - i : yabai -m window --display south; yabai -m display --focus south;
 shift + alt - o :  yabai -m window --display north; yabai -m display --focus north;
 
@@ -54,10 +43,8 @@ alt - u : yabai -m window --toggle split
 
 # rotate layout clockwise
 shift + alt - r : yabai -m space --rotate 270
-
 # flip along y-axis
 shift + alt - y : yabai -m space --mirror y-axis
-
 # flip along x-axis
 shift + alt - x : yabai -m space --mirror x-axis
 
@@ -71,14 +58,20 @@ alt - m : yabai -m window --toggle zoom-fullscreen
 shift + alt - e : yabai -m space --balance
 
 # stop/start/restart yabai
-ctrl + alt - q : brew services stop yabai
-ctrl + alt - s : brew services start yabai
 ctrl + alt - r : yabai --restart-service
 
 # focus requires SIP disabled 
 # ctrl - 1 : yabai -m space --focus 1
 # ctrl - 2 : yabai -m space --focus 2
 
-# move window to display left and right
-# shift + alt - s : yabai -m window --display west; yabai -m display --focus west;
-# shift + alt - g : yabai -m window --display east; yabai -m display --focus east;
+shift + ctrl + alt - f : yabai -m config layout float
+shift + ctrl + alt - s : yabai -m config layout stack && yabai -m config mouse_follows_focus on
+shift + ctrl + alt - e : yabai -m config layout bsp && yabai -m config mouse_follows_focus on
+
+# open app with hotkey
+alt - return : open -a Terminal
+# alt - return : open -na Terminal
+alt - g : open -a /Applications/Google\ Chrome.app                    
+alt - a : open -a /Applications/Arc.app                    
+alt - c : open -a /Applications/Visual\ Studio\ Code.app
+alt - s : open -a /Applications/Spotify.app
